@@ -37,3 +37,27 @@ outputs/
 
 # Root environment file
 .env
+
+# FleetGuard AI Service ignores
+fleetguard-ai-service/venv/
+fleetguard-ai-service/venv2/
+fleetguard-ai-service/node_modules/
+fleetguard-ai-service/uploads/
+fleetguard-ai-service/*.log
+fleetguard-ai-service/*.whl
+fleetguard-ai-service/dataset/
+fleetguard-ai-service/dataset.zip
+fleetguard-ai-service/*.pt
+fleetguard-ai-service/*.onnx
+fleetguard-ai-service/*.weights
+
+
+# Test Coverage
+coverage/
+backend/coverage/
+
+# ML Training runs
+runs/
+
+# Temp Images
+*.jpg
