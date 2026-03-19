@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // FleetGuard AI — Frontend (React SPA) — Jenkins Pipeline
-// Deploys to: https://fleetguard.com
+// Deploys to: https://teamforta.nl
 // DirectAdmin user: teamforta | Server: 109.163.225.82 | SSH port: 26
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -14,9 +14,9 @@ pipeline {
         DEPLOY_USER  = 'teamforta'
         DEPLOY_HOST  = '109.163.225.82'
         DEPLOY_PORT  = '26'
-        APP_DIR      = '/home/teamforta/domains/fleetguard.com/public_html'
+        APP_DIR      = '/home/teamforta/domains/teamforta.nl/public_html'
         BACKUP_DIR   = '/home/teamforta/backups/fleetguard-fe'
-        PROD_URL     = 'https://fleetguard.com'
+        PROD_URL     = 'https://teamforta.nl'
     }
     options {
         buildDiscarder(logRotator(daysToKeepStr: '30', numToKeepStr: '10'))
