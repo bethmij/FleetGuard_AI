@@ -82,11 +82,9 @@ pipeline {
                             --exclude='node_modules' \
                             --exclude='coverage' \
                             --exclude='.env*' \
-                            --exclude='.test.' \
-                            --exclude='.spec.' \
-                            dist/ \
-                            server.js \
-                            package.json \
+                            --exclude='*.test.*' \
+                            --exclude='*.spec.*' \
+                            . \
                             || { echo "ERROR: tarball not created"; exit 1; }
                     '''
                 }
