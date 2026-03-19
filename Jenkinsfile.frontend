@@ -66,8 +66,11 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building Vite production bundle...'
-                dir('frontend') {
-                    sh 'npm run build'
+                withCredentials([file(credentialsId: 'fleetguard-fe-env', variable: 'ENV_FILE')]) {
+                    dir('frontend') {
+                        sh 'cp $ENV_FILE .env'
+                        sh 'npm run build'
+                    }
                 }
             }
         }
