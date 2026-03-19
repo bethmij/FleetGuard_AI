@@ -19,9 +19,9 @@ pipeline {
         DEPLOY_USER  = 'teamforta'
         DEPLOY_HOST  = '109.163.225.82'
         DEPLOY_PORT  = '26'
-        APP_DIR      = '/home/teamforta/domains/api.fleetguard.com/public_html'
+        APP_DIR      = '/home/teamforta/domains/api.teamforta.nl/public_html'
         BACKUP_DIR   = '/home/teamforta/backups/fleetguard-api'
-        NODE_BIN     = '/home/teamforta/nodevenv/domains/api.fleetguard.com/public_html/20/bin'
+        NODE_BIN     = '/home/teamforta/nodevenv/domains/api.teamforta.nl/public_html/20/bin'
         API_URL      = 'https://api.teamforta.nl/api/health'
     }
     options {
