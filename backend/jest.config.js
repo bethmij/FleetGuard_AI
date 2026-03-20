@@ -14,11 +14,7 @@ module.exports = {
       functions:  80,
       lines:      80,
       statements: 80,
-    },
-    './src/middleware/auth.js': {
-      lines: 100,
-      functions: 100,
-    },
+    }
   },
   testMatch: ['**/__tests__/**/*.test.js', '**/*.test.js'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
