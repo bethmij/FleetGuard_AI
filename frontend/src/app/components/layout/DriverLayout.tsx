@@ -13,6 +13,7 @@ import { DriverSidebar } from './DriverSidebar';
 import { LanguageSwitcher } from '@/app/components/common/LanguageSwitcher';
 import { useNavigate, Link } from 'react-router';
 import { notificationService } from '@/services/notificationService';
+import gpsService from '@/services/gpsService';
 
 
 interface DriverLayoutProps {
@@ -29,7 +30,15 @@ export function DriverLayout({ children }: DriverLayoutProps) {
       .then((data: any) => {
         setUnreadCount(data.unread_count || 0);
       })
-      .catch(() => setUnreadCount(0));
+      .catch(() => {});
+
+    // ── Background GPS location reporter ────────────────
+    const reportGps = () => {
+      gpsService.captureAndSend().catch(() => {});
+    };
+    reportGps(); // Immediate mount count trigger
+    const gpsInterval = setInterval(reportGps, 5 * 60000); // 5 minutes cycle
+    return () => clearInterval(gpsInterval);
   }, []);
 
 
