@@ -32,7 +32,7 @@ export function DesignSystem() {
               </Button>
               <div className="h-8 w-px bg-slate-200 dark:bg-slate-700"></div>
               <img 
-                src={logoFull} 
+                src={LOGO_FULL} 
                 alt="FleetGuard AI" 
                 className="h-10 object-contain"
               />

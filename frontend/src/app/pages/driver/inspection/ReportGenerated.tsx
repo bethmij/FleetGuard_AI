@@ -110,7 +110,7 @@ export function ReportGenerated() {
       
       // Add logo on the left side
       const img = new Image();
-      img.src = logoFull;
+      img.src = LOGO_FULL;
       try {
         doc.addImage(img, 'PNG', margin, yPos - 3, 45, 18);
       } catch (err) {

@@ -1,2 +1,8 @@
+# Node.js Application Startup Configuration (Phusion Passenger)
+PassengerNodejs /home/teamforta/nodevenv/domains/api.teamforta.nl/public_html/20/bin/node
+PassengerStartupFile server.js
+PassengerAppType node
+PassengerAppRoot /home/teamforta/domains/api.teamforta.nl/public_html
+
 # Increase Request Body size limit to 50MB for batch photo uploads
 LimitRequestBody 52428800

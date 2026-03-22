@@ -53,7 +53,7 @@ export function ManagerForgotPassword() {
               onClick={() => navigate('/')}
             >
               <img 
-                src={logoFull} 
+                src={LOGO_FULL} 
                 alt="FleetGuard AI" 
                 className="h-20 object-contain drop-shadow-2xl"
               />
@@ -91,7 +91,7 @@ export function ManagerForgotPassword() {
               onClick={() => navigate('/')}
             >
               <img 
-                src={logoFull} 
+                src={LOGO_FULL} 
                 alt="FleetGuard AI" 
                 className="h-14 object-contain drop-shadow-2xl"
               />
