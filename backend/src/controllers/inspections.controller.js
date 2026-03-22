@@ -64,7 +64,8 @@ exports.create = async (req, res, next) => {
 exports.getAll = async (req, res, next) => {
   try {
     const { status, vehicle_id, driver_id, page=1, limit=20 } = req.query;
-    let q = `SELECT i.*, v.number_plate, v.make, v.model, u.name as driver_name
+    let q = `SELECT i.*, v.number_plate AS vehicle_number, v.make, v.model, u.name as driver_name,
+                    (SELECT COUNT(*)::INT FROM damage_detections d WHERE d.inspection_id = i.id) AS damage_count
              FROM inspections i
              JOIN vehicles v ON v.id=i.vehicle_id
              JOIN users u    ON u.id=i.driver_id WHERE 1=1`;

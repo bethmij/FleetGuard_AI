@@ -20,8 +20,7 @@ const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:3001/api').r
 export function ManagerInspectionDetail() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { inspectionId } = useParams<{ inspectionId: string }>();
-  const id = inspectionId ?? '';
+   const { id } = useParams<{ id: string }>();
 
   const [inspection, setInspection] = useState<{
     id: string;
