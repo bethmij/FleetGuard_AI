@@ -119,7 +119,7 @@ export function AnalyticsDashboard() {
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={healthTrend}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.3} />
-                  <XAxis dataKey="day" stroke="#94a3b8" tickFormatter={(v) => v?.slice(5) || v} />
+                  <XAxis dataKey="day" stroke="#94a3b8" tickFormatter={(v) => v?.slice(5, 10) || v} />
                   <YAxis stroke="#94a3b8" domain={[0, 100]} />
                   <Tooltip
                     contentStyle={{

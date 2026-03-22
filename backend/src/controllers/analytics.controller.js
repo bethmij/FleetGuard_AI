@@ -13,7 +13,7 @@ exports.getHealthTrend = async (req, res) => {
   try {
     const days = parseInt(req.query.days, 10) || 30;
     const { rows } = await pool.query(
-      `SELECT DATE(i.created_at) AS day, ROUND(AVG(COALESCE(i.health_score, v.health_score, 100))::NUMERIC, 1) AS avg_health
+      `SELECT DATE(i.created_at) AS day, ROUND(AVG(COALESCE(i.health_score, v.health_score, 100))::NUMERIC, 1)::FLOAT AS avg_health
        FROM inspections i
        JOIN vehicles v ON v.id = i.vehicle_id
        WHERE i.created_at >= NOW() - ($1 || ' days')::INTERVAL
@@ -51,7 +51,7 @@ exports.getTopDamagedVehicles = async (req, res) => {
     const { rows } = await pool.query(
       `SELECT v.id, v.number_plate AS registration_number, v.make, v.model,
               COUNT(d.id)::INT AS total_damages,
-              ROUND(AVG(COALESCE(i.health_score, v.health_score, 100))::NUMERIC, 0) AS avg_health,
+              ROUND(AVG(COALESCE(i.health_score, v.health_score, 100))::NUMERIC, 0)::FLOAT AS avg_health,
               MAX(i.created_at) AS last_inspection
        FROM vehicles v
        JOIN inspections i ON i.vehicle_id = v.id

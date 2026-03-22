@@ -215,7 +215,7 @@ export function ManagerDashboard() {
         </GlassCard>
 
         {/* Quick Actions */}
-         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Button 
             className="h-16 bg-blue-600 hover:bg-blue-700 text-white" 
             onClick={() => navigate('/manager/fleet/add')}
@@ -236,8 +236,16 @@ export function ManagerDashboard() {
             variant="outline"
             onClick={() => navigate('/manager/smart-assignment')}
           >
-            <TrendingUp className="mr-2 h-5 w-5" />
+            <Sparkles className="mr-2 h-5 w-5" />
             {t('managerDashboard.smartAssign')}
+          </Button>
+          <Button 
+            className="h-16 bg-slate-200/50 dark:bg-white/10 hover:bg-slate-200/80 dark:hover:bg-white/20 text-slate-900 dark:text-white border border-slate-300/50 dark:border-white/20" 
+            variant="outline"
+            onClick={() => navigate('/manager/analytics')}
+          >
+            <BarChart3 className="mr-2 h-5 w-5" />
+            View Analytics
           </Button>
         </div>
       </div>
