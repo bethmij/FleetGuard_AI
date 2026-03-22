@@ -6,11 +6,13 @@
  * @date       2026-03-14
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, Bell } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { DriverSidebar } from './DriverSidebar';
 import { LanguageSwitcher } from '@/app/components/common/LanguageSwitcher';
+import { useNavigate, Link } from 'react-router';
+import { notificationService } from '@/services/notificationService';
 
 
 interface DriverLayoutProps {
@@ -19,6 +21,16 @@ interface DriverLayoutProps {
 
 export function DriverLayout({ children }: DriverLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    notificationService.getAll()
+      .then((data: any) => {
+        setUnreadCount(data.unread_count || 0);
+      })
+      .catch(() => setUnreadCount(0));
+  }, []);
 
 
   return (
@@ -49,10 +61,20 @@ export function DriverLayout({ children }: DriverLayoutProps) {
 
 
             {/* Notifications */}
-            <Button variant="ghost" size="icon" className="rounded-full relative">
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-            </Button>
+            <Link to="/driver/notifications">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="rounded-full relative"
+              >
+                <Bell className="w-5 h-5 text-slate-700 dark:text-white" />
+                {unreadCount > 0 && (
+                  <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full flex items-center justify-center text-[8px] text-white font-bold">
+                    {unreadCount > 9 ? '9+' : unreadCount}
+                  </span>
+                )}
+              </Button>
+            </Link>
           </div>
         </header>
 

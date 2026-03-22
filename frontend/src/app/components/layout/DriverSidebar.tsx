@@ -102,6 +102,12 @@ const navigationItems: NavItem[] = [
     key: 'history',
   },
   {
+    title: 'Notifications',
+    icon: MessageCircle,
+    href: '/driver/notifications',
+    key: 'notifications',
+  },
+  {
     title: 'Profile',
     icon: User,
     key: 'profile',

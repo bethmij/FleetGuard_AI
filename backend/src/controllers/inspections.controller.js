@@ -12,6 +12,7 @@ const fs = require('fs');
 const FormData = require('form-data');
 const axios = require('axios');
 const PDFDocument = require('pdfkit');
+const nctrl = require('./notifications.controller');
 
 // Photo order for AI service (matches Python PHOTO_LABELS)
 const PHOTO_ORDER = ['front', 'rear', 'left', 'right', 'interior', 'dashboard', 'damage', 'odometer'];
@@ -140,6 +141,14 @@ exports.complete = async (req, res, next) => {
       "UPDATE inspections SET status='completed',updated_at=NOW() WHERE id=$1 AND driver_id=$2",
       [req.params.id, req.user.id]
     );
+    const vehObj = await pool.query(
+      `SELECT v.number_plate FROM inspections i 
+       JOIN vehicles v ON v.id = i.vehicle_id 
+       WHERE i.id = $1`, [req.params.id]
+    );
+    const plate = vehObj.rows[0]?.number_plate || `#${req.params.id}`;
+    await nctrl.createNotification(req.user.id, 'info', `Inspection for ${plate} submitted successfully. Pending manager review.`);
+
     res.json({ message: 'Inspection completed' });
   } catch (err) { next(err); }
 };
@@ -459,6 +468,17 @@ exports.reviewInspection = async (req, res, next) => {
       'SELECT review_status, reviewed_at FROM inspections WHERE id = $1',
       [id]
     );
+    const inspObj = await pool.query(
+      `SELECT i.driver_id, v.number_plate FROM inspections i 
+       JOIN vehicles v ON v.id = i.vehicle_id 
+       WHERE i.id = $1`, [id]
+    );
+    if (inspObj.rows.length) {
+      const { driver_id, number_plate } = inspObj.rows[0];
+      const msg = `Your inspection for ${number_plate} has been ${review_status === 'approved' ? 'Approved' : 'Flagged'}.`;
+      await nctrl.createNotification(driver_id, 'info', msg);
+    }
+
     res.json({
       message: 'Inspection reviewed',
       review_status,

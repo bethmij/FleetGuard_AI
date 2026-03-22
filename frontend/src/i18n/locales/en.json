@@ -171,7 +171,8 @@
     "profile": "Profile",
     "viewProfile": "View Profile",
     "editProfile": "Edit Profile",
-    "changePassword": "Change Password"
+    "changePassword": "Change Password",
+    "notifications": "Notifications"
   },
   "managerNav": {
     "dashboard": "Dashboard",

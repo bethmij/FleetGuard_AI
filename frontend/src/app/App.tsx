@@ -76,6 +76,7 @@ export default function App() {
             <Route path="/driver/inspection/report" element={<DriverLayout><ReportGenerated /></DriverLayout>} />
             <Route path="/driver/history" element={<DriverLayout><InspectionHistory /></DriverLayout>} />
             <Route path="/driver/history/:id" element={<DriverLayout><InspectionDetail /></DriverLayout>} />
+            <Route path="/driver/notifications" element={<DriverLayout><Notifications /></DriverLayout>} />
             <Route path="/driver/profile" element={<DriverLayout><DriverProfile /></DriverLayout>} />
             <Route path="/driver/profile/edit" element={<DriverLayout><EditDriverProfile /></DriverLayout>} />
             <Route path="/driver/profile/change-password" element={<DriverLayout><ChangePassword /></DriverLayout>} />
