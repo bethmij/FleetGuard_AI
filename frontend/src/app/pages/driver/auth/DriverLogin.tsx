@@ -230,7 +230,7 @@ export function DriverLogin() {
                     }}
                     onError={() => setError('Google Authentication Failed')}
                     width="100%"
-                    theme="filled_black"
+                    theme="filled_blue"
                     shape="circle"
                   />
                 </div>
