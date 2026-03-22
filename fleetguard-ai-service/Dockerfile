@@ -21,5 +21,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy everything else
 COPY . .
 
+# Expose the Railway default port
+EXPOSE 8080
+
 # Command to run the application
 CMD ["python", "app.py"]
