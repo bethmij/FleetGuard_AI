@@ -1,0 +1,54 @@
+name: Deploy AI service to Hugging Face
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - fleetguard-ai-service/app.py
+      - fleetguard-ai-service/requirements.txt
+      - fleetguard-ai-service/best_damage.pt
+      - deploy/huggingface/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Repository settings → Secrets and variables → Actions.
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_SPACE: ${{ vars.HF_SPACE }} # e.g. your-hf-username/fleetguard-ai
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Check configuration
+        run: |
+          if [ -z "$HF_TOKEN" ] || [ -z "$HF_SPACE" ]; then
+            echo "Set the HF_TOKEN secret and the HF_SPACE variable first." >&2
+            exit 1
+          fi
+      - name: Assemble Space files
+        run: |
+          mkdir -p space
+          cp deploy/huggingface/README.md deploy/huggingface/Dockerfile space/
+          cp fleetguard-ai-service/app.py fleetguard-ai-service/requirements.txt fleetguard-ai-service/best_damage.pt space/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Upload to the Space
+        run: |
+          pip install --quiet "huggingface_hub>=0.25"
+          python - <<'PY'
+          import os
+          from huggingface_hub import HfApi
+          api = HfApi(token=os.environ["HF_TOKEN"])
+          space = os.environ["HF_SPACE"]
+          api.create_repo(space, repo_type="space", space_sdk="docker", exist_ok=True)
+          api.upload_folder(folder_path="space", repo_id=space, repo_type="space",
+                            commit_message=f"Deploy {os.environ.get('GITHUB_SHA', '')[:7]}")
+          print(f"Deployed to https://huggingface.co/spaces/{space}")
+          PY
