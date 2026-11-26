@@ -9,7 +9,7 @@
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/app/components/ui/button';
-import { Car, FileText, AlertTriangle, Activity, ArrowRight, TrendingUp } from 'lucide-react';
+import { Car, FileText, AlertTriangle, Activity, ArrowRight, TrendingUp, Sparkles, BarChart3 } from 'lucide-react';
 import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
 import { SkeletonLoader } from '@/app/components/common/SkeletonLoader';
 import { ErrorMessage } from '@/app/components/common/ErrorMessage';
