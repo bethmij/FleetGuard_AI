@@ -1,0 +1,35 @@
+# Render Blueprint for the FleetGuard API (free plan).
+# Render → New → Blueprint → pick this repo. Fill the "sync: false" values when asked.
+services:
+  - type: web
+    name: fleetguard-api
+    runtime: node
+    plan: free
+    region: singapore
+    rootDir: backend
+    # Demo photos are downloaded at build time because the free plan has no
+    # persistent disk. Photos uploaded at runtime are lost when the service restarts.
+    buildCommand: npm install --omit=dev && node scripts/download-demo-images.js
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false # Supabase session pooler URI (IPv4). Supabase → Connect → Session pooler.
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        sync: false # e.g. https://fleetguard-ai.vercel.app
+      - key: AI_SERVICE_URL
+        sync: false # e.g. https://<hf-user>-fleetguard-ai.hf.space
+      - key: AI_TIMEOUT
+        value: "120000" # the free AI Space can take a minute to wake up
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
